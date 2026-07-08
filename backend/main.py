@@ -70,9 +70,12 @@ async def call_fashn_ai(person_path: str, garment_path: str) -> str:
             "https://api.fashn.ai/v1/run",
             headers={"Authorization": f"Bearer {FASHNAI_API_KEY}"},
             json={
-                "model_image": f"data:image/png;base64,{person_b64}",
-                "garment_image": f"data:image/png;base64,{garment_b64}",
-                "category": "tops",
+                "model_name": "tryon-v1.6",
+                "inputs": {
+                    "model_image": f"data:image/png;base64,{person_b64}",
+                    "garment_image": f"data:image/png;base64,{garment_b64}",
+                    "category": "auto",
+                }
             }
         )
         data = response.json()
