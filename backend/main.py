@@ -76,6 +76,8 @@ async def call_fashn_ai(person_path: str, garment_path: str) -> str:
             }
         )
         data = response.json()
+        if "id" not in data:
+            raise HTTPException(status_code=502, detail=f"fashn.ai error: {data}")
         prediction_id = data["id"]
 
         for _ in range(60):
@@ -131,7 +133,8 @@ async def tryon(request: TryOnRequest, x_api_key: str = Header(...)):
 
         return {"result_image": result_image, "plan": shop["plan"]}
 
-    except Exception as e:
+except Exception as e:
+        print(f"TRYON ERROR: {repr(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
