@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Shop — Bagerhat Boutique</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; max-width: 500px; margin: 40px auto; padding: 0 20px; }
+    .product { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+    .product img { width: 100%; border-radius: 8px; }
+    .tryon-trigger {
+      display: block; width: 100%; margin-top: 12px; background: #111; color: #fff;
+      border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Bagerhat Boutique</h2>
+
+  <div class="product">
+    <img src="/garments/white-shirt.jpg" />
+    <h3>Classic White Shirt</h3>
+    <button class="tryon-trigger" data-garment-image="http://localhost:3000/garments/white-shirt.jpg" data-garment-desc="a white formal cotton shirt">
+      Try It On
+    </button>
+  </div>
+
+  <div class="product">
+    <img src="/garments/navy-polo.jpg" />
+    <h3>Navy Blue Polo</h3>
+    <button class="tryon-trigger" data-garment-image="http://localhost:3000/garments/navy-polo.jpg" data-garment-desc="a navy blue polo t-shirt">
+      Try It On
+    </button>
+  </div>
+
+  <script src="/widget.js" data-api-key="A38BeJL311uOIyZOPRU1Iz7UPS28diLol5oUgTZ9oW0" data-api-url="http://localhost:8001"></script>
+</body>
+</html>
