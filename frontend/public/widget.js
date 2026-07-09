@@ -143,9 +143,27 @@
         const data = await res.json();
 
         if (data.result_image) {
+          let swatchesHTML = '';
+          if (data.skin_tone && data.skin_tone.suggested_palette) {
+            const st = data.skin_tone;
+            const swatches = st.suggested_palette.map(c =>
+              `<div style="text-align:center">
+                <div style="width:36px;height:36px;border-radius:50%;background:${c.hex};margin:0 auto 4px;border:1px solid #ddd"></div>
+                <div style="font-size:10px;color:#666">${c.name}</div>
+              </div>`
+            ).join('');
+            swatchesHTML = `
+              <div style="margin-top:16px;padding:14px;background:#f9f9f9;border-radius:8px">
+                <div style="font-size:12px;font-weight:600;color:#111;margin-bottom:4px">🎨 Colors that complement your tone</div>
+                <div style="font-size:11px;color:#888;margin-bottom:12px">Season: ${st.season} · Undertone: ${st.undertone}</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">${swatches}</div>
+              </div>
+            `;
+          }
           resultArea.innerHTML = `
             <div class="tryon-result">
               <img src="data:image/png;base64,${data.result_image}" />
+              ${swatchesHTML}
               <a class="tryon-download" download="tryon-result.png" href="data:image/png;base64,${data.result_image}">Download</a>
             </div>
           `;
