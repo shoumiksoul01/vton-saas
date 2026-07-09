@@ -10,6 +10,7 @@ import io
 from gradio_client import Client, handle_file
 from supabase import create_client
 from dotenv import load_dotenv
+from skin_tone import analyze_skin_tone
 
 load_dotenv()
 
@@ -134,7 +135,13 @@ async def tryon(request: TryOnRequest, x_api_key: str = Header(...)):
             {"usage_count": shop["usage_count"] + 1}
         ).eq("id", shop["id"]).execute()
 
-        return {"result_image": result_image, "plan": shop["plan"]}
+        skin_tone_data = analyze_skin_tone(request.person_image)
+
+        return {
+            "result_image": result_image,
+            "plan": shop["plan"],
+            "skin_tone": skin_tone_data
+        }
 
     except Exception as e:
         print(f"TRYON ERROR: {repr(e)}")
