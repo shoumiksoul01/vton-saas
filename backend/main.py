@@ -104,8 +104,12 @@ async def call_fashn_ai(person_path: str, garment_path: str) -> str:
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "vton-saas"}
-
+    try:
+        supabase.table("shops").select("id").limit(1).execute()
+        db_status = "ok"
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+    return {"status": "ok", "service": "vton-saas", "db": db_status}
 
 @app.post("/tryon")
 async def tryon(request: TryOnRequest, x_api_key: str = Header(...)):
